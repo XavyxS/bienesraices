@@ -1,5 +1,6 @@
 import express from "express";
 import usuarioRoutes from "./routes/usuarioRoutes.js"
+import path from 'path';
 
 const app = express()
 const port = 3000;
@@ -9,7 +10,8 @@ app.set('view engine', 'pug')
 app.set('views', './views')
 
 // Carpeta pública
-app.set( express.static('public'))
+app.use(express.static(path.resolve('public')));
+// app.set( express.static('public'))
 
 //Routing
 app.use('/auth', usuarioRoutes);
