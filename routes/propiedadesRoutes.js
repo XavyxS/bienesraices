@@ -2,7 +2,7 @@ import { body } from 'express-validator'
 import express from 'express'
 import { admin, crear, guardar, agregarImagen, almacenarImagen, editar, guardarCambios, eliminar, cambiarEstado, mostrarPropiedad, enviarMensaje, verMensajes } from '../controllers/propiedadController.js'
 import protegerRuta from '../middleware/protegerRuta.js'
-import upload from '../middleware/subirImagen.js'
+import upload from '../middleware/subirImgCloudinary.js'
 import identificarUsuario from '../middleware/identificarUsuario.js'
 
 const router = express.Router()

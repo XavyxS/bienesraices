@@ -1,4 +1,4 @@
-import { unlink } from 'node:fs/promises'
+import { v2 as cloudinary } from 'cloudinary';
 import { validationResult } from 'express-validator'
 import { Precio, Categoria, Propiedad, Mensaje, Usuario } from '../models/index.js'
 import { esVendedor, mensajePrevio, formatearFecha } from '../helpers/indexHelper.js'
@@ -52,6 +52,7 @@ const admin = async (req, res) => {
       propiedades,
       paginas: Math.ceil(totalPropiedades / limit),
       paginaActual: Number(paginaActual),
+      cloudinaryName: process.env.CLOUDINARY_CLOUD_NAME, // Pasar el valor a la vista
       totalPropiedades,
       offset,
       limit
@@ -320,12 +321,19 @@ const eliminar = async (req, res) => {
     res.redirect('/mis-propiedades')
   }
 
-  //Eliminar la imagen
-  await unlink(`public/uploads/${propiedad.imagen}`)
+  try {
+    //Eliminar la imagen de Cloudinary
+    if (propiedad.imagen) {
+      await cloudinary.uploader.destroy(propiedad.imagen); 
+    }
 
-  //Eliminar el registro en la BD
-  await propiedad.destroy()
-  res.redirect('/mis-propiedades')
+    //Eliminar el registro en la BD
+    await propiedad.destroy()
+    res.redirect('/mis-propiedades')
+
+  } catch (error) {
+    console.log(error)
+  }
 
 }
 
@@ -387,7 +395,8 @@ const mostrarPropiedad = async (req, res) => {
     propiedad,
     usuario: req.usuario,
     esVendedor: esVendedor(req.usuario?.id, propiedad.usuarioId),
-    mensajePrevio: hayMensaje
+    mensajePrevio: hayMensaje,
+    cloudinaryName: process.env.CLOUDINARY_CLOUD_NAME, // Pasar el valor a la vista
   })
 }
 

@@ -16,7 +16,10 @@ block contenido
 
     div(class="mt-5 md:flex md:gap-4 md:items-start")
       div(class="md:w-2/3 bg-white shadow rounded-lg")
-        img(src=`/uploads/${propiedad.imagen}`, alt=`${propiedad.titulo}`)
+        img(src=`https://res.cloudinary.com/${cloudinaryName}/image/upload/f_auto/${propiedad.imagen}`, alt=`${propiedad.titulo}`)
+
+
+        //- img(src=`/uploads/${propiedad.imagen}`, alt=`${propiedad.titulo}`)
         div(class="px-5 py-10 space-y-6")
           p= propiedad.descripcion
 

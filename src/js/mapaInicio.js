@@ -1,4 +1,6 @@
+
 (function () {
+
   const lat = 20.67444163271174;
   const lng = -103.38739216304566;
   const mapa = L.map('mapa-inicio').setView([lat, lng], 16);
@@ -61,7 +63,9 @@
         .addTo(mapa)
         .bindPopup(`
           <h1 class="text-md font-extrabold uppercase my-5">${propiedad.titulo}</h1>
-          <img src="/uploads/${propiedad.imagen}" alt="Imagen de la Propiedad: ${propiedad.titulo}">
+          <img src="https://res.cloudinary.com/dld2uhhbc/image/upload/f_auto/${propiedad.imagen}", alt="${propiedad.titulo}">
+
+
           <p class="text-gray-600 font-bold">${propiedad.precio.nombre}</p>
           <p class="text-indigo-600 font-bold">${propiedad.categoria.nombre}</p>
           <a href="/propiedad/${propiedad.id}" class="bg-indigo-600 block p-2 text-center uppercase">Ver Propiedad</a>

@@ -48,7 +48,8 @@ const inicio = async (req, res) => {
     categorias,
     precios,
     casas,
-    departamentos
+    departamentos,
+    cloudinaryName: process.env.CLOUDINARY_CLOUD_NAME, // Pasar el valor a la vista
   })
 
 }
@@ -110,7 +111,8 @@ const categoria = async (req, res) => {
       totalPropiedades,
       offset,
       limit,
-      id
+      id,
+      cloudinaryName: process.env.CLOUDINARY_CLOUD_NAME, // Pasar el valor a la vista
     })
 
 
@@ -184,7 +186,8 @@ const buscador = async (req, res) => {
       totalPropiedades,
       offset,
       limit,
-      termino
+      termino,
+      cloudinaryName: process.env.CLOUDINARY_CLOUD_NAME, // Pasar el valor a la vista
     })
 
   } catch (error) {
