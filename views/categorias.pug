@@ -1,0 +1,41 @@
+extends ./layout/app
+
+
+block contenido
+
+    if propiedades.length 
+
+      section(class="py-2")
+        h2(class="text-center text-4xl font-extrabold pt-10")= pagina
+
+        div(class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-5")
+          each propiedad in propiedades 
+            include ./templates/card     
+            //-  Usamos una vista genérica para no repetir el código
+
+        div(class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6")
+
+          div(class="flex-1 flex justify-between sm:hidden")
+            a(href=`/categoria/${id}?pagina=${paginaActual - 1}` class=`${paginaActual === 1 ? "pointer-events-none" : ""} relative inline-flex px-4 py-2 items-center border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50`) Anterior
+
+            div(class="text-sm py-2 text-gray-700")
+              span Pag:  
+              span= paginaActual 
+
+
+            a(href=`/categoria/${id}?pagina=${paginaActual + 1}` class=`${paginaActual === paginas ? "pointer-events-none" : ""} relative inline-flex px-4 py-2 items-center border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50`) Siguiente
+            
+          div(class="hidden sm:fle-1 sm:flex sm:items-center sm:justify-between")
+            p(class="text-sm text-gray-700 gap-2") Mostrando de: 
+              span(class="font-medium") #{offset + 1} a:  
+              span(class="font-medium") #{limit + offset > totalPropiedades ? totalPropiedades : limit + offset}, de 
+              span(class="font-medium") #{totalPropiedades} resultados
+          div(class="hidden sm:block")
+            nav(class="relative z-0 inline-flex rounded-md shadow-md")
+              - var n = 1;
+                  while n <= paginas
+                    a(href=`/categoria/${id}?pagina=${n}` class=`${paginaActual == n ? 'bg-indigo-50 border-indigo-500 text-indigo-600 font-extrabold' : 'bg-white border-gray-500 text-gray-500 hover:bg-gray-50' } relative inline-flex items-center px-4 py-2 border text-sm font-medium`) #{n++}
+
+
+    else 
+      p(class="text-center") No hay Propiedades
