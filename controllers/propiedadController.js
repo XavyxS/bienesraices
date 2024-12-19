@@ -376,7 +376,7 @@ const mostrarPropiedad = async (req, res) => {
   if (!propiedad || !propiedad.publicado) {
     return res.redirect('/404')
   }
-  const hayMensaje = false
+  let hayMensaje = false
   if (req.usuario) {
     hayMensaje = await mensajePrevio(req.usuario?.id, propiedad.id)
   }
@@ -412,7 +412,7 @@ const enviarMensaje = async (req, res) => {
   let resultado = validationResult(req)
 
   //Verifica si hay mensajes precios de este usuario en esa propiedad
-  const hayMensaje = false
+  let hayMensaje = false
   if (req.usuario) {
     hayMensaje = await mensajePrevio(req.usuario?.id, propiedad.id)
   }
